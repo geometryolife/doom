@@ -74,3 +74,25 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+
+;; Change C-d to help-command prefix
+(map! :nvie "C-d" 'help-command)
+(add-to-list 'help-event-list '4)
+
+;; Change C-h to backspace (like Vim)
+(global-set-key (kbd "C-h") 'backward-delete-char-untabify)
+
+;; Change M-d to C-d and remap functions of original keys
+(map! :e "M-d" 'delete-char)
+(map! :e "M-D" 'kill-word)
+(map! :e "C-w" 'backward-kill-word)
+(map! :e "M-W" 'kill-region)
+
+;; Add an additional key binding to set-mark-command
+(global-set-key (kbd "M-s m") 'set-mark-command)
+
+(map! :leader :nv "k" #'+lookup/documentation)
+
+(map! :nv "J" (lambda () (interactive) (evil-next-line 5))
+      :nv "K" (lambda () (interactive) (evil-previous-line 5)))
